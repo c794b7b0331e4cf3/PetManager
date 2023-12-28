@@ -6,7 +6,7 @@
 <layout:base>
     <jsp:attribute name="title"><jsp:invoke fragment="title"/></jsp:attribute>
     <jsp:body>
-        <div class="h-100 d-flex flex-column align-items-center justify-content-center">
+        <div class="h-full flex justify-center items-center">
             <jsp:doBody/>
         </div>
     </jsp:body>

@@ -1,6 +1,8 @@
 <%@tag pageEncoding="UTF-8" %>
 <%@attribute name="title" fragment="true" %>
 
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+
 <!doctype html>
 <html lang="zh-CN">
 <head>
@@ -8,8 +10,10 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+    <link rel="stylesheet" href="<c:url value="resources/styles/layui.css"/>"/>
+    <script src="<c:url value="resources/scripts/layui.js"/>"></script>
+    <script src="<c:url value="resources/scripts/uno.js"/>"></script>
 
     <style>
         :root, body {
@@ -23,7 +27,7 @@
         <jsp:invoke fragment="title"/>
     </title>
 </head>
-<body data-bs-theme="dark">
+<body>
 <jsp:doBody/>
 </body>
 </html>

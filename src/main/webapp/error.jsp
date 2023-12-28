@@ -6,7 +6,9 @@
 <layout:centered>
     <jsp:attribute name="title">服务器错误</jsp:attribute>
     <jsp:body>
-        <h1>${message}</h1>
-        <a href="<c:url value="/list"/>" class="mt-2 btn btn-lg btn-primary">返回列表</a>
+        <div class="text-center flex flex-col gap-2">
+            <h1>${message}</h1>
+            <a href="<c:url value="/list"/>" class="layui-btn layui-btn-lg layui-btn-primary">返回列表</a>
+        </div>
     </jsp:body>
 </layout:centered>

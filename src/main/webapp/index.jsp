@@ -6,6 +6,6 @@
 <layout:centered>
     <jsp:attribute name="title">首页</jsp:attribute>
     <jsp:body>
-        <a href="<c:url value="/list"/>" class="btn btn-lg btn-primary">点击进入系统</a>
+        <a href="<c:url value="/list"/>" class="layui-btn layui-btn-lg layui-btn-primary">点击进入系统</a>
     </jsp:body>
 </layout:centered>

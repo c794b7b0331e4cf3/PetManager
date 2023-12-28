@@ -25,7 +25,7 @@ public abstract class Dao<T> {
         try {
             Class.forName(properties.getProperty("driver"));
         } catch (ClassNotFoundException e) {
-            throw new ApplicationException("类", e.getMessage());
+            throw new ApplicationException("驱动类", e.getMessage());
         }
 
         try {
@@ -35,26 +35,11 @@ public abstract class Dao<T> {
         }
     }
 
-    protected T loadInto(Class<T> target, ResultSet data) throws ApplicationException {
-        try {
-            T instance = target.getDeclaredConstructor().newInstance();
-
-            for (Field field : target.getDeclaredFields()) {
-                field.setAccessible(true);
-                field.set(instance, data.getObject(field.getName()));
-            }
-
-            return instance;
-        } catch (Exception e) {
-            throw new ApplicationException("载入", e.getMessage());
-        }
-    }
-
-    protected boolean executeUpdate(String sql, Object... params) throws ApplicationException {
+    protected boolean executeUpdate(String sql, Object... args) throws ApplicationException {
         try (var connection = getConnection()) {
             try (var statement = connection.prepareStatement(sql)) {
-                for (int i = 0; i < params.length; i++) {
-                    statement.setObject(i + 1, params[i]);
+                for (int i = 0; i < args.length; i++) {
+                    statement.setObject(i + 1, args[i]);
                 }
 
                 return statement.executeUpdate() > 0;
@@ -76,7 +61,18 @@ public abstract class Dao<T> {
                 ResultSet data = statement.executeQuery();
 
                 while (data.next()) {
-                    result.add(loadInto(target, data));
+                    try {
+                        T instance = target.getDeclaredConstructor().newInstance();
+
+                        for (Field field : target.getDeclaredFields()) {
+                            field.setAccessible(true);
+                            field.set(instance, data.getObject(field.getName()));
+                        }
+
+                        result.add(instance);
+                    } catch (Exception e) {
+                        throw new ApplicationException("映射", e.getMessage());
+                    }
                 }
             }
         } catch (SQLException e) {
